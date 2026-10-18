@@ -1,0 +1,290 @@
+[
+ {
+  "fn": "countTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-30",
+   "2026-10-26"
+  ],
+  "expected": "From 2026-10-19 to 2026-10-30 inclusive: 12 calendar days, 2 weekend days, 1 holiday, 9 working days."
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-30",
+   ""
+  ],
+  "expected": "From 2026-10-19 to 2026-10-30 inclusive: 12 calendar days, 2 weekend days, 0 holidays, 10 working days."
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-19",
+   ""
+  ],
+  "expected": "From 2026-10-19 to 2026-10-19 inclusive: 1 calendar day, 0 weekend days, 0 holidays, 1 working day."
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "2026-10-24",
+   "2026-10-25",
+   ""
+  ],
+  "expected": "From 2026-10-24 to 2026-10-25 inclusive: 2 calendar days, 2 weekend days, 0 holidays, 0 working days."
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-23",
+   "2026-10-21, 2026-10-21, 2026-10-24"
+  ],
+  "expected": "From 2026-10-19 to 2026-10-23 inclusive: 5 calendar days, 0 weekend days, 1 holiday, 4 working days."
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "2024-02-28",
+   "2024-03-01",
+   ""
+  ],
+  "expected": "From 2024-02-28 to 2024-03-01 inclusive: 3 calendar days, 0 weekend days, 0 holidays, 3 working days."
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "2026-10-30",
+   "2026-10-19",
+   ""
+  ],
+  "expected": "ERR:end date must not be before start date"
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "2026-02-30",
+   "2026-03-05",
+   ""
+  ],
+  "expected": "ERR:start date must be a real date written like 2026-10-19, from 1970 to 2100"
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-30",
+   "26-10-26"
+  ],
+  "expected": "ERR:holidays must be up to 50 dates written like 2026-10-19, separated by commas"
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "1969-12-31",
+   "2026-10-30",
+   ""
+  ],
+  "expected": "ERR:start date must be a real date written like 2026-10-19, from 1970 to 2100"
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "2026-10-19",
+   "2101-01-01",
+   ""
+  ],
+  "expected": "ERR:end date must be a real date written like 2026-10-19, from 1970 to 2100"
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-30",
+   "2026-13-01"
+  ],
+  "expected": "ERR:holiday must be a real date written like 2026-10-19, from 1970 to 2100"
+ },
+ {
+  "fn": "countTruth",
+  "args": [
+   "2020-01-01",
+   "2030-01-01",
+   ""
+  ],
+  "expected": "From 2020-01-01 to 2030-01-01 inclusive: 3654 calendar days, 1044 weekend days, 0 holidays, 2610 working days."
+ },
+ {
+  "fn": "addTruth",
+  "args": [
+   "2026-10-19",
+   5,
+   ""
+  ],
+  "expected": "5 working days after 2026-10-19: 2026-10-26."
+ },
+ {
+  "fn": "addTruth",
+  "args": [
+   "2026-10-19",
+   5,
+   "2026-10-21"
+  ],
+  "expected": "5 working days after 2026-10-19: 2026-10-27."
+ },
+ {
+  "fn": "addTruth",
+  "args": [
+   "2026-10-23",
+   1,
+   ""
+  ],
+  "expected": "1 working day after 2026-10-23: 2026-10-26."
+ },
+ {
+  "fn": "addTruth",
+  "args": [
+   "2026-10-24",
+   0,
+   ""
+  ],
+  "expected": "0 working days after 2026-10-24: 2026-10-24."
+ },
+ {
+  "fn": "addTruth",
+  "args": [
+   "2026-10-19",
+   2000,
+   ""
+  ],
+  "expected": "2000 working days after 2026-10-19: 2034-06-19."
+ },
+ {
+  "fn": "addTruth",
+  "args": [
+   "2026-10-19",
+   2001,
+   ""
+  ],
+  "expected": "ERR:working days must be a whole number from 0 to 2000"
+ },
+ {
+  "fn": "addTruth",
+  "args": [
+   "2026-10-19",
+   -1,
+   ""
+  ],
+  "expected": "ERR:working days must be a whole number from 0 to 2000"
+ },
+ {
+  "fn": "addTruth",
+  "args": [
+   "2026-10-19",
+   2.5,
+   ""
+  ],
+  "expected": "ERR:working days must be a whole number from 0 to 2000"
+ },
+ {
+  "fn": "addTruth",
+  "args": [
+   "abc",
+   5,
+   ""
+  ],
+  "expected": "ERR:start date must be a real date written like 2026-10-19, from 1970 to 2100"
+ },
+ {
+  "fn": "bufferTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-30",
+   8,
+   "2026-10-26"
+  ],
+  "expected": "Working days after 2026-10-19 through 2026-10-30 inclusive: 8. Needed: 8. Spare: 0."
+ },
+ {
+  "fn": "bufferTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-30",
+   10,
+   ""
+  ],
+  "expected": "Working days after 2026-10-19 through 2026-10-30 inclusive: 9. Needed: 10. Short: 1."
+ },
+ {
+  "fn": "bufferTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-30",
+   9,
+   ""
+  ],
+  "expected": "Working days after 2026-10-19 through 2026-10-30 inclusive: 9. Needed: 9. Spare: 0."
+ },
+ {
+  "fn": "bufferTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-19",
+   0,
+   ""
+  ],
+  "expected": "Working days after 2026-10-19 through 2026-10-19 inclusive: 0. Needed: 0. Spare: 0."
+ },
+ {
+  "fn": "bufferTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-19",
+   1,
+   ""
+  ],
+  "expected": "Working days after 2026-10-19 through 2026-10-19 inclusive: 0. Needed: 1. Short: 1."
+ },
+ {
+  "fn": "bufferTruth",
+  "args": [
+   "2026-10-30",
+   "2026-10-19",
+   1,
+   ""
+  ],
+  "expected": "ERR:deadline must not be before start date"
+ },
+ {
+  "fn": "bufferTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-30",
+   2001,
+   ""
+  ],
+  "expected": "ERR:needed days must be a whole number from 0 to 2000"
+ },
+ {
+  "fn": "bufferTruth",
+  "args": [
+   "2026-10-19",
+   "2026-10-30",
+   3,
+   ", "
+  ],
+  "expected": "ERR:holidays must be up to 50 dates written like 2026-10-19, separated by commas"
+ },
+ {
+  "fn": "bufferTruth",
+  "args": [
+   "2020-01-01",
+   "2035-01-01",
+   3,
+   ""
+  ],
+  "expected": "ERR:the span must be 3660 days or fewer"
+ }
+]
