@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workday Math - app</title>
+<style>
+  :root { --accent:#5a4a9c; --ink:#1d1a2e; --paper:#f5f3fb; --soft:#e6e1f5; }
+  * { box-sizing:border-box; margin:0; }
+  body { font-family:Georgia, "Times New Roman", serif; background:var(--paper); color:var(--ink); line-height:1.55; }
+  main { max-width:660px; margin:0 auto; }
+  .boundary { background:#fdeaea; border-left:6px solid #b03030; color:#5c1c1c; border-radius:6px; padding:1rem 1.1rem; }
+  .boundary strong { display:block; margin-bottom:.3rem; }
+  body { padding:2rem 1.2rem; }
+  h1 { font-size:1.8rem; color:var(--accent); }
+  .boundary { margin:1rem 0 1.4rem; }
+  .panel { background:var(--soft); border-left:5px solid var(--accent); border-radius:6px; padding:1rem 1.1rem; margin-bottom:1.1rem; }
+  h2 { font-size:1.1rem; margin-bottom:.6rem; }
+  p.note { font-size:.9rem; margin-bottom:.4rem; }
+  label { display:block; font-size:.9rem; margin:.45rem 0 .1rem; }
+  input, select { width:100%; padding:.45rem .55rem; font-size:1rem; border:1px solid #c9c0e6; border-radius:6px; background:#fff; color:var(--ink); }
+  .row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.6rem; }
+  .row2 { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
+  .out { margin-top:.7rem; font-size:.98rem; background:#fff; border:1px dashed #c9c0e6; border-radius:6px; padding:.6rem .7rem; min-height:2.4rem; }
+  .out.err { border-color:#b03030; color:#8a1f1f; }
+  footer { margin-top:1.8rem; font-size:.85rem; color:#6a6486; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Workday Math</h1>
+  <div class="boundary">
+    <strong>Boundary: arithmetic only</strong>
+    This page counts weekdays between the dates you type and skips only the holidays you list. It does not know any country's or company's holidays, and it does not say whether a deadline is realistic or what a contract allows.
+  </div>
+
+  <div class="panel">
+    <h2>Your holidays</h2>
+    <p class="note">Dates you list, written like 2026-10-26 and separated by commas. Weekends are always skipped. Leave it empty for none.</p>
+    <label for="hol">Holidays</label><input id="hol" type="text" value="2026-10-26">
+  </div>
+
+  <div class="panel">
+    <h2>The count truth</h2>
+    <p class="note">Every kind of day between two dates, both ends included.</p>
+    <div class="row2">
+      <div><label for="c-s">Start date</label><input id="c-s" type="text" value="2026-10-19"></div>
+      <div><label for="c-e">End date</label><input id="c-e" type="text" value="2026-10-30"></div>
+    </div>
+    <div class="out" id="c-out"></div>
+  </div>
+
+  <div class="panel">
+    <h2>The add truth</h2>
+    <p class="note">The date a number of working days after a start date. The start day is not counted.</p>
+    <div class="row2">
+      <div><label for="a-s">Start date</label><input id="a-s" type="text" value="2026-10-19"></div>
+      <div><label for="a-n">Working days</label><input id="a-n" type="number" step="1" value="5"></div>
+    </div>
+    <div class="out" id="a-out"></div>
+  </div>
+
+  <div class="panel">
+    <h2>The buffer truth</h2>
+    <p class="note">Working days after the start through the deadline, against the working days a job needs.</p>
+    <div class="row">
+      <div><label for="b-s">Start date</label><input id="b-s" type="text" value="2026-10-19"></div>
+      <div><label for="b-d">Deadline</label><input id="b-d" type="text" value="2026-10-30"></div>
+      <div><label for="b-n">Days needed</label><input id="b-n" type="number" step="1" value="6"></div>
+    </div>
+    <div class="out" id="b-out"></div>
+  </div>
+
+  <footer>Workday Math is exact arithmetic over the numbers you enter. <a href="index.html">Why it exists</a>.</footer>
+</main>
+<script src="engine.js"></script>
+<script>
+  const num = (id) => Number(document.getElementById(id).value);
+  function show(id, fn) {
+    const out = document.getElementById(id);
+    try { out.textContent = fn(); out.classList.remove("err"); }
+    catch (e) { out.textContent = e.message; out.classList.add("err"); }
+  }
+  function recalc() {
+    const v = (id) => document.getElementById(id).value;
+    show("c-out", () => countTruth(v("c-s"), v("c-e"), v("hol")));
+    show("a-out", () => addTruth(v("a-s"), num("a-n"), v("hol")));
+    show("b-out", () => bufferTruth(v("b-s"), v("b-d"), num("b-n"), v("hol")));
+  }
+  document.querySelectorAll("input").forEach((el) => {
+    el.addEventListener("input", recalc);
+    el.addEventListener("change", recalc);
+  });
+  recalc();
+</script>
+</body>
+</html>
